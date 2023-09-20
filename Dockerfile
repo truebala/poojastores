@@ -1,16 +1,11 @@
 
-FROM node:14-alpine
+FROM mcr.microsoft.com/dotnet/runtime:3.1
 
 
 WORKDIR /app
 
+# Copy your .NET application binaries to the container
+COPY ./bin/Release/netcoreapp3.1/publish/ .
 
-COPY . .
-
-
-RUN 
-
-EXPOSE 3000
-
-
-CMD ["node", "server.js"]
+# Define the command to run when the container starts
+CMD ["./YourAppName"]
