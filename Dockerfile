@@ -5,10 +5,10 @@ FROM node:14-alpine
 WORKDIR /app
 
 
-COPY 
+COPY . .
 
 
-RUN npm install express stripe dotenv
+RUN 
 
 EXPOSE 3000
 
