@@ -11,7 +11,7 @@ LABEL org.label-schema.name    = ".NET Core Demo Web App" \
 WORKDIR /app
 
 # Copy already published binaries (from build stage image)
-COPY  
+COPY  ppojastores/trunk/PoojaStores/appsettings.json .
 
 # Expose port 5000 from Kestrel webserver
 EXPOSE 5000
