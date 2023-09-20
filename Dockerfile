@@ -1,12 +1,12 @@
-
-# Stage 1: Build the .NET application
-FROM mcr.microsoft.com/dotnet/sdk:5.0
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
-
-# Copy the .csproj and restore as distinct layers
-COPY app/*.csproj ./
+COPY * .csproj ./
 RUN dotnet restore
-EXPOSE 5000
+COPY . ./
+RUN dotnet publish -c Release -o out
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
+COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "run", "--urls", "http://0.0.0.0:5000"]
 
 
