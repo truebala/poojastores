@@ -1,5 +1,5 @@
 # Base image is .NET Core runtime only (Linux)
-FROM mcr.microsoft.com/dotnet/aspnet:$IMAGE_BASE
+FROM mcr.microsoft.com/dotnet/aspnet
 
 # Metadata in Label Schema format (http://label-schema.org)
 LABEL org.label-schema.name    = ".NET Core Demo Web App" \
