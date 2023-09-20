@@ -1,17 +1,26 @@
+# Base image is .NET Core runtime only (Linux)
+FROM mcr.microsoft.com/dotnet/aspnet:$IMAGE_BASE
 
-FROM mcr.microsoft.com/dotnet/runtime:3.1
+# Metadata in Label Schema format (http://label-schema.org)
+LABEL org.label-schema.name    = ".NET Core Demo Web App" \
+      org.label-schema.version = "1.5.0" \
+      org.label-schema.vendor  = "Ben Coleman" \
+      org.opencontainers.image.source = "https://github.com/truebala/poojastores.git"
 
-
+# Seems as good a place as any
 WORKDIR /app
 
-# Copy your .NET application binaries to the container
-COPY ppojastores/trunk/PoojaStores/bin/Release/netcoreapp3.1 .
+# Copy already published binaries (from build stage image)
+COPY --from=build /build/src/bin/Release/net6.0/publish/ .
 
-EXPOSE 80
+# Expose port 5000 from Kestrel webserver
+EXPOSE 5000
 
-ENV ASPNETCORE_URLS http://*:80
+# Tell Kestrel to listen on port 5000 and serve plain HTTP
+ENV ASPNETCORE_URLS http://*:5000
 ENV ASPNETCORE_ENVIRONMENT Production
+# This is critical for the Azure AD signin flow to work in Kubernetes and App Service
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 
-# Define the command to run when the container starts
+# Run the ASP.NET Core app
 ENTRYPOINT dotnet dotnet-demoapp.dll
