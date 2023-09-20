@@ -1,5 +1,5 @@
 
-FROM mcr.microsoft.com/dotnet/sdk:$IMAGE_BASE 
+FROM mcr.microsoft.com/dotnet/runtime:3.1
 
 
 WORKDIR /app
