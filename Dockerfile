@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:3.1 as build
 WORKDIR /app
-COPY /var/lib/jenkins/workspace/.net project2/ppojastores/trunk/PoojaStores.csproj ./
+COPY ppojastores/trunk/*.PoojaStores.csproj ./
 RUN dotnet restore
 
 COPY . ./
